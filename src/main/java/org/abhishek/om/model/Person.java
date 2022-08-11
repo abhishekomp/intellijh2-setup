@@ -11,12 +11,17 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
+
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Person() {
+
     }
 
     public long getId() {
