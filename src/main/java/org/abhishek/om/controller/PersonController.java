@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/person-service")
@@ -22,18 +23,30 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.CREATED).body(addPerson);
     }
 
-    @GetMapping("/hello")
-    public String sayHello(@RequestParam(name = "name", defaultValue = "World") String name) {
-        return String.format("Hello, %s", name);
-    }
-
     @GetMapping("/getAllPersons")
     public List<Person> getAllPersons() {
         return personService.getAllPersons();
     }
 
-    public void removePerson(@RequestParam String id) {
+    @GetMapping("/getPerson/{id}")
+    public ResponseEntity<Person> getPerson(@PathVariable("id") Long id) {
+        final Person person = personService.getPerson(id);
+        return ResponseEntity.status(HttpStatus.OK).body(person);
+    }
+
+    @PutMapping("/updatePerson/{id}")
+    public ResponseEntity<Person> updatePerson(@PathVariable("id") Long id, @RequestBody Person person) {
+        final Person updatedPerson = personService.updatePerson(id, person);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedPerson);
+    }
+
+    @DeleteMapping("/removePerson/{id}")
+    public void removePerson(@PathVariable String id) {
         personService.removePerson(id);
     }
 
+    @GetMapping("/hello")
+    public String sayHello(@RequestParam(name = "name", defaultValue = "World") String name) {
+        return String.format("Hello, %s", name);
+    }
 }
