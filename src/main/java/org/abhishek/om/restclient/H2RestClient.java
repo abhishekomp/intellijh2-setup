@@ -5,10 +5,8 @@ import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
 import org.abhishek.om.model.Person;
+import org.abhishek.om.util.UnirestJSONInterceptor;
 import org.json.JSONArray;
-
-import javax.crypto.spec.PSource;
-
 
 /**
  * Created by sca820 on 11 aug., 2022
@@ -92,11 +90,13 @@ public class H2RestClient {
     public Person addOnePersonGetResponseAsObject(Person person) {
         String url = "http://" + host + ":" + port + "/person-service/addPerson";
 
+        Unirest.config().interceptor(new UnirestJSONInterceptor());
         HttpResponse<Person> response = Unirest.post(url)
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(person)
                 .asObject(Person.class);
+        Unirest.config().reset();
         //System.out.println("Id of created person: " + response.getBody().getId());
         Person body = response.getBody();
         return body;
@@ -116,13 +116,13 @@ public class H2RestClient {
     public JsonNode addOnePersonGetResponseAsJSON(Person person) {
 
         String url = "http://" + host + ":" + port + "/person-service/addPerson";
-
+        Unirest.config().interceptor(new UnirestJSONInterceptor());
         HttpResponse<JsonNode> response = Unirest.post(url)
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(person)
                 .asJson();
-
+        Unirest.config().reset();
         System.out.println("Status of add Person method: " + response.getStatus());
         JsonNode jsonNode = response.getBody();
 //        JSONObject jsonObject = jsonNode.getObject();

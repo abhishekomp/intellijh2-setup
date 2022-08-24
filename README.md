@@ -22,3 +22,5 @@ Question:
 2. How to start the Spring application with H2 database pre-populated with a few rows in the table?
    Ans: Done using @PostConstruct to populate a single table
 3. H2RestClient (getPerson): This method errors out if there are no person record in the table. How to handle this?
+4. Logging RestAPI request and response using Unirest interceptor (class UnirestJSONInterceptor). I observed that the response logging
+   errors when using .asObject(Person.class) with post(). However, logging is fine when using .asJSON();

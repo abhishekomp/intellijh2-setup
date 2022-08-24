@@ -34,7 +34,7 @@ class H2RestClientTest {
 
     @Test
     void addOnePersonGetResponseAsJSON() {
-        Person person = new Person("Abhikriti", "Babu");
+        Person person = new Person("Abhikriti", "Babuuuuu");
         JsonNode jsonNode = h2RestClient.addOnePersonGetResponseAsJSON(person);
         JSONObject jsonObject = jsonNode.getObject();
         assertThat(jsonObject.getString("firstName")).isEqualTo("Abhikriti");
