@@ -2,6 +2,8 @@ package org.abhishek.om.controller;
 
 import org.abhishek.om.model.Person;
 import org.abhishek.om.service.PersonService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +16,21 @@ import java.util.Optional;
 @RequestMapping("/person-service")
 public class PersonController {
 
+    Logger logger = LoggerFactory.getLogger(PersonController.class);
+
     @Autowired
     PersonService personService;
 
     @PostMapping("/addPerson")
     public ResponseEntity<Person> addPerson(@RequestBody Person person) {
+        logger.info("====Person addPerson Controller=====");
         Person addPerson = personService.addPerson(person);
         return ResponseEntity.status(HttpStatus.CREATED).body(addPerson);
     }
 
     @GetMapping("/getAllPersons")
     public List<Person> getAllPersons() {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>> controller method getAllPersons was invoked");
         return personService.getAllPersons();
     }
 
